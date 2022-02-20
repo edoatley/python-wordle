@@ -23,19 +23,21 @@ class Attempt:
         if self.word == self.attempt:
             return 5 * self.RLRP
 
-        result = ""
+        result = ''
 
-        for i in self.word:
-            if self.attempt == self.word:
+        for (i, c) in enumerate(self.attempt):
+            if self.word[i] == c:
                 result = result + self.RLRP
-            elif i in self.word:
-                if self.word.count(i) == self.attempt.count(i):
+            elif c not in self.word:
+                result = result + self.WLWP
+            else:    
+                count_in_word = self.word.count(c)
+                if count_in_word == self.attempt.count(c) or self.attempt[:i].count(c) <= count_in_word:
                     result = result + self.RLWP
                 else:
-                    # logic for WLWP / RLWP
-                    pass
-            else:
-                result = result + self.WLWP
+                    result = result + self.WLWP    
+            
+        return result
 
     def validate_input(string, label):
         if len(string) != 5:
