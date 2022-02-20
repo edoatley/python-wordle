@@ -1,4 +1,3 @@
-import string
 from wordle_main.dictionary import Dictionary
 from wordle_main.attempt import Attempt
 

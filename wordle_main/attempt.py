@@ -1,6 +1,3 @@
-from itertools import count
-
-
 class Attempt:
     """
     This class represents an attempt at guessing the word the game has selected
@@ -35,7 +32,8 @@ class Attempt:
                 if self.word.count(i) == self.attempt.count(i):
                     result = result + self.RLWP
                 else:
-                    pass  # need to implement a rule that decides whether to give RLWP OR WLWP
+                    # logic for WLWP / RLWP
+                    pass
             else:
                 result = result + self.WLWP
 
