@@ -1,5 +1,6 @@
 from itertools import count
 
+
 class Attempt:
     """
     This class represents an attempt at guessing the word the game has selected
@@ -20,7 +21,7 @@ class Attempt:
     def __init__(self, word, attempt):
         self.word = Attempt.validate_input(word, "Word")
         self.attempt = Attempt.validate_input(attempt, "Attempt")
-        
+
     def evaluate(self):
         if self.word == self.attempt:
             return 5 * self.RLRP
@@ -37,7 +38,7 @@ class Attempt:
                     pass  # need to implement a rule that decides whether to give RLWP OR WLWP
             else:
                 result = result + self.WLWP
-                
+
     def validate_input(string, label):
         if len(string) != 5:
             raise ValueError(f"{label} {string} is incorrect length")
