@@ -18,18 +18,19 @@ class Attempt:
     def __init__(self, word, attempt):
         self.word = Attempt.validate_input(word, "Word")
         self.attempt = Attempt.validate_input(attempt, "Attempt")
+        self.result = self.evaluate()
 
     def evaluate(self):
         if self.word == self.attempt:
             return 5 * self.RLRP
 
-        result = ""
+        r = ""
 
         for (i, c) in enumerate(self.attempt):
             if self.word[i] == c:
-                result = result + self.RLRP
+                r = r + self.RLRP
             elif c not in self.word:
-                result = result + self.WLWP
+                r = r + self.WLWP
             else:
                 count_in_word = self.word.count(c)
                 count_in_attempt = self.attempt.count(c)
@@ -39,11 +40,11 @@ class Attempt:
                     count_in_word == count_in_attempt
                     or count_sofar_in_attempt < count_in_word
                 ):
-                    result = result + self.RLWP
+                    r = r + self.RLWP
                 else:
-                    result = result + self.WLWP
+                    r = r + self.WLWP
 
-        return result
+        return r
 
     def validate_input(string, label):
         if len(string) != 5:
@@ -54,3 +55,8 @@ class Attempt:
             raise ValueError(f"{label} {string} is not lower case")
         else:
             return string
+
+    def __eq__(self, other) -> bool:
+        if isinstance(other, Attempt):
+            return self.attempt == other.attempt
+        return False
