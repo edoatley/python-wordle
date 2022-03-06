@@ -1,2 +1,6 @@
 .venv
 .pytest_cache
+.mypy_cache
+.coverage
+wordle_main/__pycache__
+wordle_test/__pycache__
