@@ -17,12 +17,48 @@ class TestGame(unittest.TestCase):
         self.assertEqual(len(g.attempts), 0)
         self.assertIn(g.current_solution, ["brown", "climb", "drown", "frame"])
 
-    def test_simple_game(self):
+    def test_one_turn_game_immediate_victory(self):
         g = Game(self.test_dict())
-        g.current_solution = "brown"  # force word to a known value
+        correct_answer = "brown"
+        g.current_solution = correct_answer  # force word to a known value
+
         g.process_new_attempt("brown")
         self.assertEqual(len(g.attempts), 1)
-        self.assertIn(Attempt("brown", "brown"), g.attempts)
+        self.assertIn(Attempt(correct_answer, "brown"), g.attempts)
+        self.assertEqual(g.result, True)
+
+    def test_two_turn_game_rapid_victory(self):
+        g = Game(self.test_dict())
+        correct_answer = "brown"
+        g.current_solution = correct_answer  # force word to a known value
+
+        g.process_new_attempt("drown")
+        self.assertEqual(len(g.attempts), 1)
+        self.assertIn(Attempt(correct_answer, "drown"), g.attempts)
+
+        g.process_new_attempt("brown")
+        self.assertEqual(len(g.attempts), 2)
+        self.assertIn(Attempt(correct_answer, "brown"), g.attempts)
+
+        self.assertEqual(g.result, True)
+
+    def test_three_turn_game_victory(self):
+        g = Game(self.test_dict())
+        correct_answer = "brown"
+        g.current_solution = correct_answer  # force word to a known value
+
+        g.process_new_attempt("drown")
+        self.assertEqual(len(g.attempts), 1)
+        self.assertIn(Attempt(correct_answer, "drown"), g.attempts)
+
+        g.process_new_attempt("climb")
+        self.assertEqual(len(g.attempts), 2)
+        self.assertIn(Attempt(correct_answer, "climb"), g.attempts)
+
+        g.process_new_attempt("brown")
+        self.assertEqual(len(g.attempts), 3)
+        self.assertIn(Attempt(correct_answer, "brown"), g.attempts)
+
         self.assertEqual(g.result, True)
 
     def test_dict(self):
