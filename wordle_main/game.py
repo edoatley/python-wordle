@@ -12,13 +12,14 @@ class Game:
     - current_attempt
     """
 
-    def __init__(self):
-        self.attempts = [Attempt() for _ in range(6)]
+    def __init__(self, dictionary):
+        self.attempts = []
         self.dictionary = Dictionary()
-        self.new_game(self)
+        self.dictionary.load(dictionary)
+        self.new_game()
 
     def new_game(self):
-        self.current_solution = self.dictionary.randomWord()
+        self.current_solution = self.dictionary.random_word()
         self.current_attempt = 0
 
     def process_new_attempt(self, word: str):

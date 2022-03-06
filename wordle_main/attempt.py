@@ -32,7 +32,10 @@ class Attempt:
                 result = result + self.WLWP
             else:    
                 count_in_word = self.word.count(c)
-                if count_in_word == self.attempt.count(c) or self.attempt[:i].count(c) <= count_in_word:
+                count_in_attempt = self.attempt.count(c)
+                count_sofar_in_attempt = self.attempt[:i].count(c)
+                count_sofar_in_word = self.word[:i].count(c)
+                if count_in_word == count_in_attempt or count_sofar_in_attempt < count_in_word:
                     result = result + self.RLWP
                 else:
                     result = result + self.WLWP    
