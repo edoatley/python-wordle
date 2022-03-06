@@ -1,6 +1,7 @@
 from random import randrange
 import os
 
+
 class Dictionary:
     """
     This class represents the dictionary wordle uses to check word validity
