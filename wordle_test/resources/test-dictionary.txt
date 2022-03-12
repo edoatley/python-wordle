@@ -1,4 +1,7 @@
+adapt
+blame
 brown
 climb
 drown
 frame
+trout

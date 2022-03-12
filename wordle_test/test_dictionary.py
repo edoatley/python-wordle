@@ -10,7 +10,7 @@ class TestDictionary(unittest.TestCase):
     Tests for Dictionary Class
     """
 
-    TEST_WORDS_SET_1 = ["brown", "climb", "drown", "frame"]
+    TEST_WORDS_SET_1 = ["adapt", "blame", "brown", "climb", "drown", "frame", "trout"]
 
     def test_create_nowords(self):
         test_dict = Dictionary()
@@ -23,7 +23,7 @@ class TestDictionary(unittest.TestCase):
     def test_load_success(self):
         test_dict = Dictionary()
         test_dict.load("./wordle_test/resources/test-dictionary.txt")
-        self.assertEqual(4, test_dict.size())
+        self.assertEqual(7, test_dict.size())
 
     def test_load_failed_no_dictionary(self):
         test_dict = Dictionary()
@@ -51,12 +51,15 @@ class TestDictionary(unittest.TestCase):
         test_dict = Dictionary(self.TEST_WORDS_SET_1)
         self.assertFalse(test_dict.lookup("whine"))
 
-    def test_lookup_missing(self):
+    def test_lookup_present(self):
         test_dict = Dictionary(self.TEST_WORDS_SET_1)
+        self.assertTrue(test_dict.lookup("adapt"))
+        self.assertTrue(test_dict.lookup("blame"))
         self.assertTrue(test_dict.lookup("brown"))
         self.assertTrue(test_dict.lookup("climb"))
         self.assertTrue(test_dict.lookup("drown"))
         self.assertTrue(test_dict.lookup("frame"))
+        self.assertTrue(test_dict.lookup("trout"))
 
 
 if __name__ == "__main__":

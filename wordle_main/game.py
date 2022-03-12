@@ -1,6 +1,6 @@
 from wordle_main.dictionary import Dictionary
 from wordle_main.attempt import Attempt
-from wordle_main.exceptions import DictionaryError
+from wordle_main.exceptions import DictionaryError, StateError
 
 MAX_ATTEMPTS = 6
 
@@ -28,14 +28,25 @@ class Game:
         self.attempt_number = 0
 
     def process_new_attempt(self, guess: str):
-        if not self.dictionary.lookup(guess):
-            raise DictionaryError(f"Word {guess} is not in the dictionary")
+
+        self.validate_attempt(guess)
 
         attempt = Attempt(self.current_solution, guess)
         attempt.evaluate()
+
         self.attempts.append(attempt)
         self.attempt_number += 1
         self.check_result()
+
+    def validate_attempt(self, guess):
+        if not self.dictionary.lookup(guess):
+            raise DictionaryError(f"Word {guess} is not in the dictionary")
+        elif len(self.attempts) >= MAX_ATTEMPTS:
+            raise StateError("Player has already lost and making more attempts")
+        elif self.result in (True, False):
+            raise StateError("Game has been completed")
+        elif guess in {a.attempt for a in self.attempts}:
+            raise StateError(f"Guess {guess} already attempted")
 
     def check_result(self):
         if self.attempts[-1].result == 5 * Attempt.RLRP:
