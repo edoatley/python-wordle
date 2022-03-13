@@ -71,7 +71,13 @@ class TestGame(unittest.TestCase):
         self.assertEqual(msg, "Guess drown already attempted")
 
     def test_attempt_after_victory_forbidden(self):
-        pass
+        g, correct_answer = self.set_word_to_brown()
+        g.process_new_attempt("brown")
+
+        with self.assertRaises(StateError) as cm:
+            g.process_new_attempt("brown")
+        msg = cm.exception.args[0]
+        self.assertEqual(msg, "Game has been completed")
 
     def test_attempt_after_defeat_forbidden(self):
         pass
@@ -85,7 +91,8 @@ class TestGame(unittest.TestCase):
         g = Game(self.test_dict())
         correct_answer = "brown"
         g.current_solution = correct_answer  # force word to a known value
-        return g,correct_answer
+        return g, correct_answer
+
 
 if __name__ == "__main__":
     unittest.main()
