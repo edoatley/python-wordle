@@ -4,7 +4,7 @@ import pathlib
 import os
 from wordle_main.game import Game
 from wordle_main.attempt import Attempt
-from wordle_main.exceptions import StateError
+from wordle_main.exceptions import StateError, DictionaryError
 
 
 class TestGame(unittest.TestCase):
@@ -80,7 +80,28 @@ class TestGame(unittest.TestCase):
         self.assertEqual(msg, "Game has been completed")
 
     def test_attempt_after_defeat_forbidden(self):
-        pass
+        g, correct_answer = self.set_word_to_brown()
+        g.process_new_attempt("adapt")
+        g.process_new_attempt("blame")
+        g.process_new_attempt("climb")
+        g.process_new_attempt("drown")
+        g.process_new_attempt("frame")
+        g.process_new_attempt("trout")
+        self.assertFalse(g.result)
+
+        with self.assertRaises(StateError) as cm:
+            g.process_new_attempt("brown")
+        msg = cm.exception.args[0]
+        self.assertEqual(msg, "Player has already lost and making more attempts")
+
+    def test_attempt_invalid_word_forbidden(self):
+        g, correct_answer = self.set_word_to_brown()
+        
+        with self.assertRaises(DictionaryError) as cm:
+            g.process_new_attempt("aaaaa")
+        msg = cm.exception.args[0]
+        self.assertEqual(msg, "Word aaaaa is not in the dictionary")
+
 
     def test_dict(self):
         current_dir = pathlib.Path().resolve()
