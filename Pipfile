@@ -12,6 +12,7 @@ pytest = "*"
 pytest-cov = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.9"

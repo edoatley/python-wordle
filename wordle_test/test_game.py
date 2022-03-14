@@ -92,16 +92,15 @@ class TestGame(unittest.TestCase):
         with self.assertRaises(StateError) as cm:
             g.process_new_attempt("brown")
         msg = cm.exception.args[0]
-        self.assertEqual(msg, "Player has already lost and making more attempts")
+        self.assertEqual(msg, "Player has lost and making more attempts")
 
     def test_attempt_invalid_word_forbidden(self):
         g, correct_answer = self.set_word_to_brown()
-        
+
         with self.assertRaises(DictionaryError) as cm:
             g.process_new_attempt("aaaaa")
         msg = cm.exception.args[0]
         self.assertEqual(msg, "Word aaaaa is not in the dictionary")
-
 
     def test_dict(self):
         current_dir = pathlib.Path().resolve()

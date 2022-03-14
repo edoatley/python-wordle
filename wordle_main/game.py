@@ -42,7 +42,7 @@ class Game:
         if not self.dictionary.lookup(guess):
             raise DictionaryError(f"Word {guess} is not in the dictionary")
         elif len(self.attempts) >= MAX_ATTEMPTS:
-            raise StateError("Player has already lost and making more attempts")
+            raise StateError("Player has lost and making more attempts")
         elif self.result in (True, False):
             raise StateError("Game has been completed")
         elif guess in {a.attempt for a in self.attempts}:
