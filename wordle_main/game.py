@@ -24,7 +24,7 @@ class Game:
         self.result = None
         self.render = ConsoleRenderer()
         self.new_game()
-    
+
     def game_loop(self):
         while self.result not in (True, False):
             self.renderer.draw_attempts_so_far(self.attempts)
@@ -33,13 +33,13 @@ class Game:
                 self.process_new_attempt(guess)
             except StateError as se:
                 self.renderer.warn_user(se)
-            except DictionaryError as de:    
+            except DictionaryError as de:
                 self.renderer.warn_user(de)
-        
+
     def new_game(self):
         self.current_solution = self.dictionary.random_word()
         self.attempt_number = 0
-    
+
     def process_new_attempt(self, guess: str):
 
         self.validate_attempt(guess)
@@ -66,6 +66,7 @@ class Game:
             self.result = True
         elif self.attempt_number >= MAX_ATTEMPTS:
             self.result = False
+
 
 if __name__ == "__main__":
     game = Game("/Users/edoatley/Personal/python-wordle/wordle_main/dictionary.txt")
