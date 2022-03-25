@@ -15,7 +15,8 @@ class ConsoleRenderer:
         pass
 
     def draw_attempts_so_far(self, attempts):
-        pass
+        for a in attempts:
+            self.print_attempt(a)
 
     def print_attempt(self, attempt):
         letters = []

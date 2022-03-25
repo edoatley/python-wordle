@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 
-from attempt import Attempt
+from wordle_main.attempt import Attempt
 
 
 class TestAttempt(unittest.TestCase):

@@ -2,7 +2,7 @@
 
 import unittest
 
-from dictionary import Dictionary
+from wordle_main.dictionary import Dictionary
 
 
 class TestDictionary(unittest.TestCase):
