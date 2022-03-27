@@ -69,5 +69,6 @@ class Game:
 
 
 if __name__ == "__main__":
-    game = Game("/Users/edoatley/Personal/python-wordle/wordle_main/dictionary.txt")
+    game = Game(
+        "/Users/edoatley/Personal/python-wordle/wordle_main/dictionary.txt")
     game.game_loop()

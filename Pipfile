@@ -10,9 +10,12 @@ flake8 = "*"
 mypy = "*"
 pytest = "*"
 pytest-cov = "*"
+autopep8 = "*"
 
 [dev-packages]
 ipykernel = "*"
+pylint = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.9"
