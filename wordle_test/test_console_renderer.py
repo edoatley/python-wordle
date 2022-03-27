@@ -107,3 +107,16 @@ def test_warn_user_guess_duplicate(capsys):
         f"{Colours.RED}{Colours.BOLD}Guess noise already attempted{Colours.ENDC}\n"
     )
     state_error(capsys, message, expected)
+
+
+def obtain_guess(capsys, monkeypatch):
+    expected_print = "what is your next guess?"
+    expected_response = "drain"
+    renderer = ConsoleRenderer()
+    # monkeypatch the "input" function, so that it returns "Mark".
+    # This simulates the user entering "Mark" in the terminal:
+    monkeypatch.setattr("builtins.input", lambda _: "drain")
+    actual_response = renderer.obtain_guess()
+    captured = capsys.readouterr()
+    assert expected_print == captured.out
+    assert expected_response == actual_response

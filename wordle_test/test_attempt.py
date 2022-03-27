@@ -95,6 +95,10 @@ class TestAttempt(unittest.TestCase):
         test_attempt = Attempt("crepe", "speed")
         self.assertEqual(test_attempt.result, "WLRLW")
 
+    def test_wrong_class_not_equal(self):
+        o1 = Attempt("crepe", "speed")
+        self.assertFalse(o1.__eq__(""))
+
 
 if __name__ == "__main__":
     unittest.main()

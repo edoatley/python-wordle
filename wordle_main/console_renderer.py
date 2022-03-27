@@ -4,7 +4,8 @@ from colours import Colours
 
 class ConsoleRenderer:
     def obtain_guess(self):
-        pass
+        guess = input("what is your next guess?")
+        return guess
 
     def draw_attempts_so_far(self, attempts):
         for a in attempts:

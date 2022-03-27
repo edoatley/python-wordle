@@ -22,7 +22,7 @@ class Game:
         self.dictionary = Dictionary()
         self.dictionary.load(dictionary)
         self.result = None
-        self.render = ConsoleRenderer()
+        self.renderer = ConsoleRenderer()
         self.new_game()
 
     def game_loop(self):
