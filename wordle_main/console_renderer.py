@@ -15,20 +15,13 @@ class ConsoleRenderer:
         for i in range(len(attempt.attempt)):
             letter = attempt.attempt[i].upper()
             if attempt.result[i] == Attempt.RLRP:
-                letters.append(
-                    f"{Colours.GREEN}{letter}{Colours.ENDC}"
-                )
+                letters.append(f"{Colours.GREEN}{letter}{Colours.ENDC}")
             elif attempt.result[i] == Attempt.RLWP:
-                letters.append(
-                    f"{Colours.YELLOW}{letter}{Colours.ENDC}"
-                )
+                letters.append(f"{Colours.YELLOW}{letter}{Colours.ENDC}")
             elif attempt.result[i] == Attempt.WLWP:
-                letters.append(
-                    f"{Colours.RED}{letter}{Colours.ENDC}"
-                )
+                letters.append(f"{Colours.RED}{letter}{Colours.ENDC}")
             else:
-                raise ValueError(
-                    "Unknown result:{attempt.result[i]}")
+                raise ValueError("Unknown result:{attempt.result[i]}")
 
         message = " ".join(letters)
         print(message)

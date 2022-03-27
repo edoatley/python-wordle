@@ -35,23 +35,40 @@ def test_more_complicated_simple_attempt(capsys):
     attempt_list = [Attempt("train", "noise")]
     attempt_test(capsys, attempt_list, expected)
 
+
 def test_realistic_scenario_part1(capsys):
     expected = f"{Colours.RED}T{Colours.ENDC} {Colours.RED}R{Colours.ENDC} {Colours.RED}U{Colours.ENDC} {Colours.RED}C{Colours.ENDC} {Colours.YELLOW}E{Colours.ENDC}\n"
     attempt_list = [Attempt("epoxy", "truce")]
     attempt_test(capsys, attempt_list, expected)
 
+
 def test_realistic_scenario_part2(capsys):
     expected = f"{Colours.RED}T{Colours.ENDC} {Colours.RED}R{Colours.ENDC} {Colours.RED}U{Colours.ENDC} {Colours.RED}C{Colours.ENDC} {Colours.YELLOW}E{Colours.ENDC}\n"
-    expected = expected + f"{Colours.GREEN}E{Colours.ENDC} {Colours.YELLOW}X{Colours.ENDC} {Colours.RED}A{Colours.ENDC} {Colours.RED}M{Colours.ENDC} {Colours.RED}S{Colours.ENDC}\n"
+    expected = (
+        expected
+        + f"{Colours.GREEN}E{Colours.ENDC} {Colours.YELLOW}X{Colours.ENDC} {Colours.RED}A{Colours.ENDC} {Colours.RED}M{Colours.ENDC} {Colours.RED}S{Colours.ENDC}\n"
+    )
     attempt_list = [Attempt("epoxy", "truce"), Attempt("epoxy", "exams")]
     attempt_test(capsys, attempt_list, expected)
 
+
 def test_realistic_scenario_part3(capsys):
     expected = f"{Colours.RED}T{Colours.ENDC} {Colours.RED}R{Colours.ENDC} {Colours.RED}U{Colours.ENDC} {Colours.RED}C{Colours.ENDC} {Colours.YELLOW}E{Colours.ENDC}\n"
-    expected = expected + f"{Colours.GREEN}E{Colours.ENDC} {Colours.YELLOW}X{Colours.ENDC} {Colours.RED}A{Colours.ENDC} {Colours.RED}M{Colours.ENDC} {Colours.RED}S{Colours.ENDC}\n"
-    expected = expected + f"{Colours.GREEN}E{Colours.ENDC} {Colours.GREEN}P{Colours.ENDC} {Colours.GREEN}O{Colours.ENDC} {Colours.GREEN}X{Colours.ENDC} {Colours.GREEN}Y{Colours.ENDC}\n"
-    attempt_list = [Attempt("epoxy", "truce"), Attempt("epoxy", "exams"), Attempt("epoxy", "epoxy")]
+    expected = (
+        expected
+        + f"{Colours.GREEN}E{Colours.ENDC} {Colours.YELLOW}X{Colours.ENDC} {Colours.RED}A{Colours.ENDC} {Colours.RED}M{Colours.ENDC} {Colours.RED}S{Colours.ENDC}\n"
+    )
+    expected = (
+        expected
+        + f"{Colours.GREEN}E{Colours.ENDC} {Colours.GREEN}P{Colours.ENDC} {Colours.GREEN}O{Colours.ENDC} {Colours.GREEN}X{Colours.ENDC} {Colours.GREEN}Y{Colours.ENDC}\n"
+    )
+    attempt_list = [
+        Attempt("epoxy", "truce"),
+        Attempt("epoxy", "exams"),
+        Attempt("epoxy", "epoxy"),
+    ]
     attempt_test(capsys, attempt_list, expected)
+
 
 def attempt_test(capsys, attempt_list, expected):
     renderer = ConsoleRenderer()
@@ -59,25 +76,34 @@ def attempt_test(capsys, attempt_list, expected):
     captured = capsys.readouterr()
     assert captured.out == expected
 
+
 def test_warn_user_dictionary(capsys):
     message = "Word abcde is not in the dictionary"
     renderer = ConsoleRenderer()
     renderer.warn_user(DictionaryError(message))
     captured = capsys.readouterr()
-    assert f"{Colours.RED}{Colours.BOLD}Word abcde is not in the dictionary{Colours.ENDC}\n" == captured.out
+    assert (
+        f"{Colours.RED}{Colours.BOLD}Word abcde is not in the dictionary{Colours.ENDC}\n"
+        == captured.out
+    )
+
 
 def state_error(capsys, message, expected):
     renderer = ConsoleRenderer()
     renderer.warn_user(StateError(message))
     captured = capsys.readouterr()
     assert expected == captured.out
-    
+
+
 def test_warn_user_too_many_attempts(capsys):
     message = "Player has lost and making more attempts"
     expected = f"{Colours.RED}{Colours.BOLD}Player has lost and making more attempts{Colours.ENDC}\n"
     state_error(capsys, message, expected)
-    
+
+
 def test_warn_user_guess_duplicate(capsys):
     message = "Guess noise already attempted"
-    expected = f"{Colours.RED}{Colours.BOLD}Guess noise already attempted{Colours.ENDC}\n"
+    expected = (
+        f"{Colours.RED}{Colours.BOLD}Guess noise already attempted{Colours.ENDC}\n"
+    )
     state_error(capsys, message, expected)
